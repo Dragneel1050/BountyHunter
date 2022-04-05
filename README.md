@@ -17,7 +17,6 @@ A script to automate sub-domain enumeration, finding live hosts and scanning the
 
 ## Usage
 
-Install the required tools using **install.sh**.
-
-Once done, you can simply run **BountyHunter.sh** and proivde the domain.
-
+1. Install the required tools using **install.sh**.
+2. Edit **BountyHunter.sh** file and add API key and Secret key that you can get from Censys.io
+3. Once done, you can simply run **BountyHunter.sh** and proivde the domain.

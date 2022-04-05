@@ -17,6 +17,7 @@ A script to automate sub-domain enumeration, finding live hosts and scanning the
 
 ## Usage
 
-Install the required tools using **install.sh**
+Install the required tools using **install.sh**.
+
 Once done, you can simply run **BountyHunter.sh** and proivde the domain.
 

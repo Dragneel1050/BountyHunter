@@ -14,6 +14,8 @@ A script to automate sub-domain enumeration, finding live hosts and scanning the
 9. FDNS
 10. httprobe
 11. Nuclei
+12. Nmap
+13. Feroxbuster
 
 ## Usage
 

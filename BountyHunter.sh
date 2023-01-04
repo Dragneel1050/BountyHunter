@@ -13,6 +13,7 @@ mkdir $domain
 API_key=''
 S_key=''
 
+
 #Running Sublister
 echo "+--------------------------------Subdomains By Sublister-------------------------------------+"
 python3 tools/Sublist3r/sublist3r.py -d $domain -o $domain/sublister$domain.txt
@@ -73,6 +74,11 @@ sed 's/^\.//' all3.txt > finalsub.txt
 rm -f all.txt all2.txt all3.txt
 
 
+#Running nmap in backgroud
+echo "+--------------------------------Running nmap-------------------------------------+"
+nmap -sV -sC -T4 -p- -iL finalsub.txt -oX nmap$domain.xml &
+
+
 #Checking for live hosts
 echo "+--------------------------------Check for live hosts-------------------------------------+"
 cat finalsub.txt | sort -u | httprobe | tee live.txt
@@ -81,8 +87,26 @@ sed 's/*//g' live1.txt > live2.txt
 sed 's/^\.//' live2.txt > live$domain.txt 
 
 
+mkdir nuclie
+mkdir ferox
+
+#Checking for Directory Bruteforce
+echo "+--------------------------------Running Ferox Buster-------------------------------------+"
+list_of_dom=live$domain.txt
+while IFS= read dom; do
+	feroxbuster -u $dom -s 200 --wordlist /usr/share/dirbuster/wordlists/directory-list-2.3-medium.txt --silent -k -x php asp htm html jsp | tee ferox/$dom.txt
+done < "$list_of_dom"
+
+
+cd ..
+
+
 #Running Nuclie
 echo "+--------------------------------Nuclie-------------------------------------+"
-mkdir nuclie
-cd ..
-nuclei -list $domain/live$domain.txt -o $domain/nuclie/nuclei$domain.txt
+folder=$domain/ferox
+for file in "$folder"/*; do
+  nuclei -list $(basename "$file") -severity critical,high,medium -as -o $domain/nuclie/nuclei$domain.txt
+done
+
+
+wait

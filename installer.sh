@@ -105,3 +105,9 @@ wget https://opendata.rapid7.com/sonar.fdns_v2/2019-10-27-1572199582-fdns_cname.
 echo "Installing Nuclei"
 GO111MODULE=on go install -v github.com/projectdiscovery/nuclei/v2/cmd/nuclei@latest
 echo "Done setting UP the Nuclei"
+
+#Feroxbuster
+
+echo "Installing Feroxbuster"
+sudo apt install -y feroxbuster
+echo "Done feroxbuster"
